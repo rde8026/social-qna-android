@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Social Qamp;A</string>
+
+    <string name="email_hint">email</string>
+    <string name="password_hint">password</string>
+    <string name="confirm_password_hint">confirm password</string>
+    <string name="name_hint">name</string>
+    <string name="city_hint">boston, ma</string>
+
+</resources>
