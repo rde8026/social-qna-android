@@ -217,5 +217,4 @@
         <item name="android:listSelector">@drawable/list_selector_holo_light</item>
     </style>
 
-
 </resources>
