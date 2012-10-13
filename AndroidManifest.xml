@@ -8,7 +8,7 @@
     <application android:label="@string/app_name"
                  android:icon="@drawable/ic_launcher"
                  android:name=".application.SocialApplication"
-                 android:theme="@style/Theme.social-qna">
+                 android:theme="@style/Theme.socialtheme">
 
 
         <activity android:name="SocialMain"
