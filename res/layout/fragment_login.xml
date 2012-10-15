@@ -21,44 +21,21 @@
         <EditText
             android:id="@+id/edtPassword"
             style="@style/wide_edit_text"
-            android:inputType="textPassword"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="@string/password_hint"
             android:singleLine="true"
-            android:imeOptions="actionNext"/>
-
-        <EditText
-            android:id="@+id/edtPasswordConfirm"
-            style="@style/wide_edit_text"
             android:inputType="textPassword"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="@string/confirm_password_hint"
-            android:singleLine="true"
-            android:imeOptions="actionNext"/>
-
-        <EditText
-            android:id="@+id/edtName"
-            style="@style/wide_edit_text"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="@string/name_hint"
-            android:singleLine="true"
-            android:inputType="textCapWords"
-            android:imeOptions="actionNext"/>
-
-        <EditText
-            android:id="@+id/edtCity"
-            style="@style/wide_edit_text"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="@string/city_hint"
-            android:singleLine="true"
-            android:inputType="textCapWords"
             android:imeOptions="actionDone"/>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/wide_button"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/login_button"/>
 
     <Button
         android:id="@+id/btnSignUp"

@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Social Qamp;A</string>
+    <string name="app_name">Social Q&amp;A</string>
 
     <string name="email_hint">email</string>
     <string name="password_hint">password</string>
     <string name="confirm_password_hint">confirm password</string>
     <string name="name_hint">name</string>
     <string name="city_hint">boston, ma</string>
+
+    <string name="missing_password_error">You must provide a password</string>
+    <string name="mis_match_password_error">The passwords do not match</string>
+    <string name="missing_name_error">You must provide your name</string>
+
+    <string name="login_button">Login</string>
+    <string name="sign_up_button">Sign Up</string>
+
+
+    <!-- Messages -->
+    <string name="error_msg_title">Error</string>
+    <string name="warning_msg_title">Warning</string>
+    <string name="info_msg_title">Info</string>
+    <string name="confirm_msg_title">Confirm</string>
+    <string name="msg_ok">OK</string>
+    <string name="msg_cancel">CANCEL</string>
+    <string name="msg_yes">YES</string>
+    <string name="msg_no">NO</string>
 
 </resources>

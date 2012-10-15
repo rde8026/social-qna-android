@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.inject.Inject;
 import com.google.inject.Key;
@@ -25,9 +26,7 @@ import java.util.Map;
  * Date: 10/12/12
  * Time: 4:44 PM
  */
-public class RoboLockActivity extends SherlockActivity implements RoboContext, DialogBase {
-
-    private DialogBase dialogBase = new DialogBaseImpl();
+public class RoboLockActivity extends SherlockActivity implements RoboContext {
 
     protected EventManager eventManager;
     protected HashMap<Key<?>, Object> scopedObjects = new HashMap<Key<?>, Object>();
@@ -121,23 +120,4 @@ public class RoboLockActivity extends SherlockActivity implements RoboContext, D
         return scopedObjects;
     }
 
-    @Override
-    public void displayWarning(String title, String message, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative) {
-        dialogBase.displayWarning(title, message, positive, negative);
-    }
-
-    @Override
-    public void displayError(String title, String message, DialogInterface.OnClickListener neutral) {
-        dialogBase.displayError(title, message, neutral);
-    }
-
-    @Override
-    public void displayInfo(String title, String message) {
-        dialogBase.displayInfo(title, message);
-    }
-
-    @Override
-    public void displayConfirm(String title, String message, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative) {
-        dialogBase.displayConfirm(title, message, positive, negative);
-    }
 }
