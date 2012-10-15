@@ -69,6 +69,8 @@ public class LoginFragment extends RoboLockFragment {
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);
 
+        KeyboardUtil.requestKeyboard(email);
+
     }
 
     private View.OnClickListener signUpListener = new View.OnClickListener() {

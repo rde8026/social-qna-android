@@ -1,6 +1,7 @@
 package com.social.qna;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,25 +40,29 @@ public class SocialMain extends RoboLockFragmentActivity {
             Fragment fragment = new LoginFragment();
             fragmentManager.beginTransaction().replace(R.id.fragmentRoot, fragment).commit();
         } else {
-            startQuestionFragment();
+            //startQuestionFragment();
+            startQuestionActivity();
         }
 
     }
 
-    private void startQuestionFragment() {
-        Fragment questionList = new QuestionListFragment();
-        fragmentManager.beginTransaction().replace(R.id.fragmentRoot, questionList).commit();
+    private void startQuestionActivity() {
+        Intent questionIntent = new Intent(this, QuestionActivity.class);
+        questionIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        questionIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(questionIntent);
+        finish();
     }
 
     @Subscribe
     public void loginEvent(final LoginComplete loginComplete) {
-        startQuestionFragment();
+        startQuestionActivity();
     }
 
     @Subscribe
     public void signUpEvent(final SignUpEvent signUpEvent) {
         Fragment signUpFragment = new SignUpFragment();
-        fragmentManager.beginTransaction().replace(R.id.fragmentRoot, signUpFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragmentRoot, signUpFragment).addToBackStack(null).commit();
     }
 
     @Override

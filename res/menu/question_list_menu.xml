@@ -3,5 +3,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@id/new_question" android:title="@string/new_question_menu_title" android:showAsAction="always|withText"/>
+    <item android:id="@id/show_all_questions" android:title="@string/show_all_questions_menu_title" android:showAsAction="always|withText"/>
+    <item android:id="@id/logout" android:title="@string/logout_menu_title" android:showAsAction="ifRoom|withText"/>
 
 </menu>

@@ -18,8 +18,8 @@
             android:id="@android:id/empty"
             style="@style/fill"
             android:textColor="@android:color/black"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/no_questions_list_text"/>
 
     </LinearLayout>
@@ -27,13 +27,15 @@
     <RelativeLayout
         style="@style/fill"
         android:orientation="vertical"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:id="@+id/loaderLayout">
 
         <ProgressBar
             style="@android:style/Widget.ProgressBar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal_holo_light"/>
 
     </RelativeLayout>

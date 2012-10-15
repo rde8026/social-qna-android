@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    style="@style/fill">
+
+    <EditText
+        android:id="@+id/edtQuestionText"
+        style="@style/wide_edit_text"
+        android:layout_height="150dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:maxLines="50"
+        android:minLines="30"
+        android:gravity="center_vertical"
+        android:hint="@string/new_question_hint"/>
+
+    <EditText
+        android:id="@+id/currentLocation"
+        style="@style/wide_edit_text"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:editable="false"
+        android:hint="@string/current_location"/>
+
+</LinearLayout>

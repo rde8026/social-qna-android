@@ -3,5 +3,8 @@
     <!-- Menu Id's -->
 
     <item name="new_question" type="id"/>
+    <item name="show_all_questions" type="id"/>
+    <item name="save_question" type="id"/>
+    <item name="logout" type="id"/>
 
 </resources>

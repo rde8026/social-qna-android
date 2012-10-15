@@ -7,6 +7,7 @@
 
     <LinearLayout
         style="@style/wide"
+        android:paddingTop="30dp"
         android:orientation="vertical">
 
         <EditText
@@ -16,7 +17,9 @@
             android:layout_marginRight="20dp"
             android:hint="@string/email_hint"
             android:singleLine="true"
-            android:imeOptions="actionNext"/>
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:text="rde8026@gmail.com"/>
 
         <EditText
             android:id="@+id/edtPassword"
@@ -26,7 +29,8 @@
             android:hint="@string/password_hint"
             android:singleLine="true"
             android:inputType="textPassword"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:text="iiiiii"/>
 
     </LinearLayout>
 

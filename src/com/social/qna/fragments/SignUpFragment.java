@@ -95,6 +95,7 @@ public class SignUpFragment extends RoboLockFragment {
                 @Override
                 public void run() {
                     pd.dismiss();
+                    loginController.setUser(kinveyUser);
                     busController.getBus().post(new LoginComplete(kinveyUser));
                 }
             });

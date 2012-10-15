@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/fill"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/questionFragRoot"
+        style="@style/fill"/>
+
+    <!--<fragment android:name="com.social.qna.fragments.QuestionListFragment"
+              android:id="@+id/questionListFrag"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"/>-->
+
+</LinearLayout>
