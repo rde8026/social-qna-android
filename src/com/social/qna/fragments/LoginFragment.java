@@ -63,7 +63,7 @@ public class LoginFragment extends RoboLockFragment {
         btnLogin.setOnClickListener(logInListener);
         btnSignUp.setOnClickListener(signUpListener);
         pd = new ProgressDialog(getActivity());
-        pd.setMessage("Login...");
+        pd.setMessage(getResources().getString(R.string.login_loading));
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);
 

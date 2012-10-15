@@ -4,12 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.google.inject.Inject;
 import com.google.inject.Key;
+import com.social.qna.robolock.dialog.DialogActivityBaseImpl;
 import com.social.qna.robolock.dialog.DialogBase;
-import com.social.qna.robolock.dialog.DialogBaseImpl;
 import roboguice.RoboGuice;
 import roboguice.activity.event.*;
 import roboguice.event.EventManager;
@@ -26,10 +25,11 @@ import java.util.Map;
  * Date: 10/12/12
  * Time: 4:44 PM
  */
-public class RoboLockActivity extends SherlockActivity implements RoboContext {
+public class RoboLockActivity extends SherlockActivity implements RoboContext, DialogBase {
 
     protected EventManager eventManager;
     protected HashMap<Key<?>, Object> scopedObjects = new HashMap<Key<?>, Object>();
+    private DialogBase dialogBase = null;
 
     @Inject
     ContentViewListener ignored; // BUG find a better place to put this
@@ -41,6 +41,7 @@ public class RoboLockActivity extends SherlockActivity implements RoboContext {
         injector.injectMembersWithoutViews(this);
         super.onCreate(savedInstanceState);
         eventManager.fire(new OnCreateEvent(savedInstanceState));
+        dialogBase = new DialogActivityBaseImpl(this);
     }
 
     @Override
@@ -120,4 +121,23 @@ public class RoboLockActivity extends SherlockActivity implements RoboContext {
         return scopedObjects;
     }
 
+    @Override
+    public void displayWarning(String title, String message, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative) {
+        dialogBase.displayWarning(title, message, positive, negative);
+    }
+
+    @Override
+    public void displayError(String title, String message, DialogInterface.OnClickListener neutral) {
+        dialogBase.displayError(title, message, neutral);
+    }
+
+    @Override
+    public void displayInfo(String title, String message) {
+        dialogBase.displayInfo(title, message);
+    }
+
+    @Override
+    public void displayConfirm(String title, String message, DialogInterface.OnClickListener positive, DialogInterface.OnClickListener negative) {
+        dialogBase.displayConfirm(title, message, positive, negative);
+    }
 }

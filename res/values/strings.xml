@@ -15,6 +15,9 @@
     <string name="login_button">Login</string>
     <string name="sign_up_button">Sign Up</string>
 
+    <string name="login_loading">Login...</string>
+    <string name="create_user_loading">Creating User...</string>
+
 
     <!-- Messages -->
     <string name="error_msg_title">Error</string>

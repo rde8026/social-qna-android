@@ -65,7 +65,7 @@ public class SignUpFragment extends RoboLockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         pd = new ProgressDialog(getActivity());
-        pd.setMessage("Creating user...");
+        pd.setMessage(getResources().getString(R.string.create_user_loading));
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);
 
