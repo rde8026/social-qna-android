@@ -10,6 +10,7 @@ import com.social.qna.controllers.LoginController;
 import com.social.qna.events.LoginComplete;
 import com.social.qna.events.SignUpEvent;
 import com.social.qna.fragments.LoginFragment;
+import com.social.qna.fragments.QuestionListFragment;
 import com.social.qna.fragments.SignUpFragment;
 import com.social.qna.robolock.RoboLockFragmentActivity;
 import com.squareup.otto.Subscribe;
@@ -38,9 +39,25 @@ public class SocialMain extends RoboLockFragmentActivity {
             Fragment fragment = new LoginFragment();
             fragmentManager.beginTransaction().replace(R.id.fragmentRoot, fragment).commit();
         } else {
-
+            startQuestionFragment();
         }
 
+    }
+
+    private void startQuestionFragment() {
+        Fragment questionList = new QuestionListFragment();
+        fragmentManager.beginTransaction().replace(R.id.fragmentRoot, questionList).commit();
+    }
+
+    @Subscribe
+    public void loginEvent(final LoginComplete loginComplete) {
+        startQuestionFragment();
+    }
+
+    @Subscribe
+    public void signUpEvent(final SignUpEvent signUpEvent) {
+        Fragment signUpFragment = new SignUpFragment();
+        fragmentManager.beginTransaction().replace(R.id.fragmentRoot, signUpFragment).commit();
     }
 
     @Override
@@ -53,17 +70,6 @@ public class SocialMain extends RoboLockFragmentActivity {
     protected void onPause() {
         super.onPause();
         busController.getBus().unregister(this);
-    }
-
-    @Subscribe
-    public void loginEvent(final LoginComplete loginComplete) {
-        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
-
-    @Subscribe
-    public void signUpEvent(final SignUpEvent signUpEvent) {
-        Fragment signUpFragment = new SignUpFragment();
-        fragmentManager.beginTransaction().replace(R.id.fragmentRoot, signUpFragment).commit();
     }
 
 }

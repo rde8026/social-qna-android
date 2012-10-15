@@ -17,6 +17,7 @@ import com.social.qna.controllers.BusController;
 import com.social.qna.controllers.LoginController;
 import com.social.qna.events.LoginComplete;
 import com.social.qna.robolock.fragment.RoboLockFragment;
+import com.social.qna.util.KeyboardUtil;
 import roboguice.inject.InjectView;
 
 import java.util.ArrayList;
@@ -76,8 +77,8 @@ public class SignUpFragment extends RoboLockFragment {
         @Override
         public void onClick(View view) {
             ArrayList<String> errors = validate();
+            KeyboardUtil.dismissKeyboard(email);
             if (errors.isEmpty()) {
-
                 pd.show();
                 loginController.createUser(email.getText().toString(), password.getText().toString(), name.getText().toString(), city.getText().toString(), createCallback);
 

@@ -15,8 +15,10 @@ import com.kinvey.util.KinveyCallback;
 import com.social.qna.R;
 import com.social.qna.controllers.BusController;
 import com.social.qna.controllers.LoginController;
+import com.social.qna.events.LoginComplete;
 import com.social.qna.events.SignUpEvent;
 import com.social.qna.robolock.fragment.RoboLockFragment;
+import com.social.qna.util.KeyboardUtil;
 import roboguice.inject.InjectView;
 
 /**
@@ -80,11 +82,13 @@ public class LoginFragment extends RoboLockFragment {
         @Override
         public void onClick(View view) {
             pd.show();
+            KeyboardUtil.dismissKeyboard(btnLogin);
             loginController.login(email.getText().toString(), password.getText().toString(), new KinveyCallback<KinveyUser>() {
                 @Override
                 public void onSuccess(KinveyUser kinveyUser) {
                     pd.dismiss();
                     loginController.setUser(kinveyUser);
+                    busController.getBus().post(new LoginComplete(kinveyUser));
                 }
 
                 @Override

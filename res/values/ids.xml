@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- Menu Id's -->
+
+    <item name="new_question" type="id"/>
+
+</resources>

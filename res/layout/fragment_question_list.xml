@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    style="@style/fill">
+
+    <LinearLayout
+        style="@style/fill"
+        android:orientation="vertical"
+        android:id="@+id/listLayout"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@android:id/list"
+            style="@style/list_view_fill"/>
+
+        <TextView
+            android:id="@android:id/empty"
+            style="@style/fill"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/no_questions_list_text"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        style="@style/fill"
+        android:orientation="vertical"
+        android:id="@+id/loaderLayout">
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/progress_indeterminate_horizontal_holo_light"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

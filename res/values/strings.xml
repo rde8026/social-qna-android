@@ -18,7 +18,6 @@
     <string name="login_loading">Login...</string>
     <string name="create_user_loading">Creating User...</string>
 
-
     <!-- Messages -->
     <string name="error_msg_title">Error</string>
     <string name="warning_msg_title">Warning</string>
@@ -28,5 +27,8 @@
     <string name="msg_cancel">CANCEL</string>
     <string name="msg_yes">YES</string>
     <string name="msg_no">NO</string>
+
+    <string name="no_questions_list_text">No questions found...</string>
+    <string name="new_question_menu_title">ASK</string>
 
 </resources>
