@@ -6,5 +6,6 @@
     <item name="show_all_questions" type="id"/>
     <item name="save_question" type="id"/>
     <item name="logout" type="id"/>
+    <item name="delete" type="id"/>
 
 </resources>

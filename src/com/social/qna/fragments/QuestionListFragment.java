@@ -3,7 +3,6 @@ package com.social.qna.fragments;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -53,6 +53,7 @@ public class QuestionListFragment extends RoboLockListFragment {
     private ProgressDialog pd = null;
 
     private QuestionAdapter adapter;
+    private ActionMode mMode;
 
     @Override
     public void onResume() {
@@ -118,9 +119,55 @@ public class QuestionListFragment extends RoboLockListFragment {
 
     private AdapterView.OnItemLongClickListener deleteQuestion = new AdapterView.OnItemLongClickListener() {
         @Override
-        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
             final QuestionModel model = adapter.getItem(i);
-            displayConfirm(getResources().getString(R.string.confirm_msg_title), getResources().getString(R.string.remove_question_message), new DialogInterface.OnClickListener() {
+
+            if (mMode != null) {
+                mMode.finish();
+                getListView().setItemChecked(i, false);
+                mMode = null;
+            } else {
+                getListView().setItemChecked(i, true);
+
+                mMode = (getSherlockActivity()).startActionMode(new ActionMode.Callback() {
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        mode.setTitle(getResources().getString(R.string.remove_question_cab_menu_text));
+                        MenuInflater inflater = (getSherlockActivity()).getSupportMenuInflater();
+                        inflater.inflate(R.menu.question_delete_cab_menu, menu);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                        if (item.getItemId() == R.id.delete) {
+                            if (mMode != null) {
+                                mMode.finish();
+                                mMode = null;
+                            }
+                            pd.setMessage(getResources().getString(R.string.remove_question_loading_text));
+                            pd.show();
+                            questionController.removeQuestion(model.getId(), deleteCallback);
+                        }
+                        return true;
+                    }
+
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        getListView().setItemChecked(i, false);
+                    }
+                });
+
+            }
+
+
+
+            /*displayConfirm(getResources().getString(R.string.confirm_msg_title), getResources().getString(R.string.remove_question_message), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
@@ -134,7 +181,7 @@ public class QuestionListFragment extends RoboLockListFragment {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
                 }
-            });
+            });*/
             return true;
         }
     };

@@ -34,6 +34,7 @@
 
     <string name="remove_question_message">Are you sure you want to remove the selected question?</string>
     <string name="remove_question_loading_text">Removing Question...</string>
+    <string name="remove_question_cab_menu_text">Remove Question?</string>
 
     <!-- Create question -->
     <string name="create_question_label">Create Question</string>
@@ -52,5 +53,6 @@
     <string name="show_all_questions_menu_title">SHOW ALL</string>
     <string name="save_question_menu_title">CREATE</string>
     <string name="logout_menu_title">LOGOUT</string>
+    <string name="delete_menu_title">DELETE</string>
 
 </resources>
