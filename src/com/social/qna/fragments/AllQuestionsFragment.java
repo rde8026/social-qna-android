@@ -10,12 +10,11 @@ import android.widget.RelativeLayout;
 import com.google.inject.Inject;
 import com.kinvey.util.ListCallback;
 import com.social.qna.R;
-import com.social.qna.adapter.QuestionAdapter;
+import com.social.qna.adapter.AllQuestionsAdapter;
 import com.social.qna.controllers.BusController;
 import com.social.qna.controllers.LoginController;
 import com.social.qna.controllers.QuestionController;
 import com.social.qna.model.QuestionModel;
-import com.social.qna.robolock.fragment.RoboLockFragment;
 import com.social.qna.robolock.fragment.RoboLockListFragment;
 import roboguice.inject.InjectView;
 
@@ -38,7 +37,7 @@ public class AllQuestionsFragment extends RoboLockListFragment {
     @InjectView(R.id.loaderLayout) private RelativeLayout loaderLayout;
     @InjectView(R.id.listLayout) private LinearLayout listLayout;
 
-    private QuestionAdapter adapter;
+    private AllQuestionsAdapter adapter;
 
     @Override
     public void onResume() {
@@ -69,11 +68,10 @@ public class AllQuestionsFragment extends RoboLockListFragment {
     private ListCallback<QuestionModel> allQuestionsCallback = new ListCallback<QuestionModel>() {
         @Override
         public void onSuccess(List<QuestionModel> questionModels) {
-
             loaderLayout.setVisibility(View.GONE);
             listLayout.setVisibility(View.VISIBLE);
 
-            adapter = new QuestionAdapter(getSherlockActivity(), R.layout.adatper_question, questionModels);
+            adapter = new AllQuestionsAdapter(getSherlockActivity(), R.layout.adapter_all_questions, questionModels);
             setListAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

@@ -4,13 +4,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.*;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -26,10 +24,12 @@ import com.social.qna.controllers.QuestionController;
 import com.social.qna.events.AllQuestionsEvent;
 import com.social.qna.events.LogoutEvent;
 import com.social.qna.events.NewQuestionEvent;
+import com.social.qna.fragments.callbacks.RemoveQuestionsCallback;
 import com.social.qna.model.QuestionModel;
 import com.social.qna.robolock.fragment.RoboLockListFragment;
 import roboguice.inject.InjectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ import java.util.List;
  * Time: 7:25 AM
  * To change this template use File | Settings | File Templates.
  */
-public class QuestionListFragment extends RoboLockListFragment {
+public class QuestionListFragment extends RoboLockListFragment implements RemoveQuestionsCallback {
 
     private static final String TAG = QuestionListFragment.class.getSimpleName();
 
@@ -54,6 +54,7 @@ public class QuestionListFragment extends RoboLockListFragment {
 
     private QuestionAdapter adapter;
     private ActionMode mMode;
+    private List<QuestionModel> mModels;
 
     @Override
     public void onResume() {
@@ -82,7 +83,8 @@ public class QuestionListFragment extends RoboLockListFragment {
         pd.setCancelable(false);
         pd.setCanceledOnTouchOutside(false);
 
-        getListView().setOnItemLongClickListener(deleteQuestion);
+        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        getListView().setItemsCanFocus(false);
 
         questionController.getQuestions(loginController.getUser(), loadQuestionsCallback);
 
@@ -93,13 +95,139 @@ public class QuestionListFragment extends RoboLockListFragment {
         super.onListItemClick(l, v, position, id);
     }
 
+    @Override
+    public void itemSelected(final SparseBooleanArray array) {
+        if (mMode == null) {
+            mMode = getSherlockActivity().startActionMode(new ActionMode.Callback() {
+                @Override
+                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                    getSherlockActivity().getSupportMenuInflater().inflate(R.menu.question_delete_cab_menu, menu);
+                    mode.setTitle(countCheckedItems(array) + " " + getResources().getString(R.string.selected_cab_text));
+                    return true;
+                }
+
+                @Override
+                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                    return false;
+                }
+
+                @Override
+                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.delete:
+                            pd.setMessage(getResources().getString(R.string.remove_question_loading_text));
+                            pd.show();
+                            questionController.removeQuestions(getSelectedItems(adapter.getSparseBooleanArray()), deleteMultiCallback);
+                        return true;
+
+                        default:
+                        return false;
+                    }
+                }
+
+                @Override
+                public void onDestroyActionMode(ActionMode mode) {
+                    if (mMode != null) {
+                        mMode = null;
+                    }
+                    array.clear();
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+            mMode.setTitle(countCheckedItems(array) + " " + getResources().getString(R.string.selected_cab_text));
+        }
+    }
+
+    @Override
+    public void itemDeSelected(SparseBooleanArray array) {
+        if (mMode == null) {
+            //should never happen...
+        } else {
+            if (countCheckedItems(array) > 0) {
+                mMode.setTitle(countCheckedItems(array) + " " + getResources().getString(R.string.selected_cab_text));
+            } else {
+                array.clear();
+                adapter.notifyDataSetChanged();
+                mMode.finish();
+                mMode = null;
+            }
+        }
+    }
+
+    private int countCheckedItems(SparseBooleanArray array) {
+        int select = 0;
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(array.keyAt(i))) {
+                select++;
+            }
+        }
+        return select;
+    }
+
+    private ArrayList<String> getSelectedItems(SparseBooleanArray array) {
+        ArrayList<String> items = new ArrayList<String>();
+
+        for (int i = 0; i < array.size(); i++) {
+            if (array.get(array.keyAt(i))) {
+                QuestionModel m = mModels.get(array.keyAt(i));
+                items.add(m.getId());
+            }
+        }
+
+        return items;
+    }
+
+    private QuestionController.MultiRemoveCallback deleteMultiCallback = new QuestionController.MultiRemoveCallback() {
+        @Override
+        public void onSuccess() {
+            getSherlockActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pd.dismiss();
+                    if (mMode != null) {
+                        mMode.finish();
+                    }
+                    loaderLayout.setVisibility(View.VISIBLE);
+                    listLayout.setVisibility(View.GONE);
+                    questionController.getQuestions(loginController.getUser(), loadQuestionsCallback);
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(final String error) {
+            getSherlockActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pd.dismiss();
+                    if (mMode != null) {
+                        mMode.finish();
+                    }
+
+                    displayError(getResources().getString(R.string.error_msg_title), error, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            loaderLayout.setVisibility(View.VISIBLE);
+                            listLayout.setVisibility(View.GONE);
+                            questionController.getQuestions(loginController.getUser(), loadQuestionsCallback);
+                        }
+                    });
+
+                }
+            });
+        }
+    };
+
     private ListCallback<QuestionModel> loadQuestionsCallback = new ListCallback<QuestionModel>() {
         @Override
         public void onSuccess(List<QuestionModel> questionModels) {
             loaderLayout.setVisibility(View.GONE);
             listLayout.setVisibility(View.VISIBLE);
+            mModels = questionModels;
 
-            adapter = new QuestionAdapter(getSherlockActivity(), R.layout.adatper_question, questionModels);
+            adapter = new QuestionAdapter(getSherlockActivity(), R.layout.adatper_question, mModels, QuestionListFragment.this);
             setListAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -114,75 +242,6 @@ public class QuestionListFragment extends RoboLockListFragment {
                     dialogInterface.dismiss();
                 }
             });
-        }
-    };
-
-    private AdapterView.OnItemLongClickListener deleteQuestion = new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-            final QuestionModel model = adapter.getItem(i);
-
-            if (mMode != null) {
-                mMode.finish();
-                getListView().setItemChecked(i, false);
-                mMode = null;
-            } else {
-                getListView().setItemChecked(i, true);
-
-                mMode = (getSherlockActivity()).startActionMode(new ActionMode.Callback() {
-                    @Override
-                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                        mode.setTitle(getResources().getString(R.string.remove_question_cab_menu_text));
-                        MenuInflater inflater = (getSherlockActivity()).getSupportMenuInflater();
-                        inflater.inflate(R.menu.question_delete_cab_menu, menu);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                        if (item.getItemId() == R.id.delete) {
-                            if (mMode != null) {
-                                mMode.finish();
-                                mMode = null;
-                            }
-                            pd.setMessage(getResources().getString(R.string.remove_question_loading_text));
-                            pd.show();
-                            questionController.removeQuestion(model.getId(), deleteCallback);
-                        }
-                        return true;
-                    }
-
-                    @Override
-                    public void onDestroyActionMode(ActionMode mode) {
-                        getListView().setItemChecked(i, false);
-                    }
-                });
-
-            }
-
-
-
-            /*displayConfirm(getResources().getString(R.string.confirm_msg_title), getResources().getString(R.string.remove_question_message), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                    pd.setMessage(getResources().getString(R.string.remove_question_loading_text));
-                    pd.show();
-                    questionController.removeQuestion(model.getId(), deleteCallback);
-                }
-            },
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });*/
-            return true;
         }
     };
 
