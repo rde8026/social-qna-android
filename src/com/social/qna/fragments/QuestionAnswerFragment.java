@@ -34,6 +34,7 @@ public class QuestionAnswerFragment extends RoboLockFragment {
     @InjectView(R.id.askedBy) private TextView askedBy;
     @InjectView(R.id.askedOn) private TextView askedOn;
     @InjectView(R.id.askedFrom) private TextView askedFrom;
+    @InjectView(R.id.askedFromLabel) private TextView askedFromLabel;
 
     private ProgressDialog pd;
 
@@ -87,6 +88,7 @@ public class QuestionAnswerFragment extends RoboLockFragment {
                 @Override
                 public void run() {
                     pd.dismiss();
+                    askedFromLabel.setVisibility(View.GONE);
                     askedFrom.setVisibility(View.GONE);
                 }
             });

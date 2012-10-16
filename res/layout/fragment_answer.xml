@@ -44,6 +44,7 @@
 
         <TextView
             style="@style/wrap_textview_14sp"
+            android:id="@+id/askedFromLabel"
             android:paddingRight="8dp"
             android:text="@string/asked_from_label"/>
 
@@ -57,6 +58,7 @@
         android:id="@+id/answerText"
         style="@style/wide_edit_text"
         android:hint="@string/answer_question_hint"
+        android:gravity="bottom"
         android:minLines="10"
         android:maxLines="20"/>
 
