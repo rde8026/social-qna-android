@@ -49,11 +49,18 @@
     <!-- Show All Questions -->
     <string name="show_all_questions_label">All Questions</string>
 
+    <!-- Answer -->
+    <string name="answer_question_hint">answer</string>
+    <string name="asked_by_label">asked by:</string>
+    <string name="asked_on_label">asked on:</string>
+    <string name="asked_from_label">location:</string>
+
     <!-- Menu Title -->
     <string name="new_question_menu_title">ASK</string>
     <string name="show_all_questions_menu_title">SHOW ALL</string>
     <string name="save_question_menu_title">CREATE</string>
     <string name="logout_menu_title">LOGOUT</string>
     <string name="delete_menu_title">DELETE</string>
+    <string name="answer_menu_title">ANSWER</string>
 
 </resources>

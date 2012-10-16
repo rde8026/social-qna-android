@@ -24,6 +24,7 @@ import com.social.qna.controllers.QuestionController;
 import com.social.qna.events.AllQuestionsEvent;
 import com.social.qna.events.LogoutEvent;
 import com.social.qna.events.NewQuestionEvent;
+import com.social.qna.events.QuestionAnswerEvent;
 import com.social.qna.fragments.callbacks.RemoveQuestionsCallback;
 import com.social.qna.model.QuestionModel;
 import com.social.qna.robolock.fragment.RoboLockListFragment;
@@ -93,6 +94,8 @@ public class QuestionListFragment extends RoboLockListFragment implements Remove
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        QuestionModel model = (QuestionModel)l.getAdapter().getItem(position);
+        busController.getBus().post(new QuestionAnswerEvent(model));
     }
 
     @Override

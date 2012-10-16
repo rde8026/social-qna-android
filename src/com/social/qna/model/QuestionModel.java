@@ -4,6 +4,7 @@ import com.kinvey.KinveyUser;
 import com.kinvey.persistence.mapping.MappedEntity;
 import com.kinvey.persistence.mapping.MappedField;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * Date: 10/15/12
  * Time: 10:50 AM
  */
-public class QuestionModel implements MappedEntity {
+public class QuestionModel implements MappedEntity, Serializable {
 
     private String id;
     private String questionText;

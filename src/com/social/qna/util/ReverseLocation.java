@@ -33,6 +33,8 @@ public class ReverseLocation {
                     List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 2);
                     if (addresses != null && !addresses.isEmpty()) {
                         callback.onSuccess(flattenAddress(addresses.get(0)));
+                    } else {
+                        callback.onFailure("no address found");
                     }
                 } catch (Exception e) {
                     callback.onFailure(e.getMessage());

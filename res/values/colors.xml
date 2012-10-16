@@ -1,0 +1,16 @@
+<resources>
+
+    <color name="lighter_grey">#DFDFDF</color>
+    <color name="light_grey">#CBCBCB</color>
+    <color name="grey">#888</color>
+
+    <color name="button_blue_dark">#3E67B2</color>
+    <color name="button_blue_light">#729BD2</color>
+    <color name="light_blue">#ff3561a4</color>
+    <color name="deep_blue">#2D4DA3</color>
+    <color name="medium_blue">#4D7AC2</color>
+
+    <color name="darker_blue_text_color">#2D4DA3</color>
+
+
+</resources>

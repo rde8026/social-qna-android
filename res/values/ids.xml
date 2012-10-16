@@ -7,5 +7,6 @@
     <item name="save_question" type="id"/>
     <item name="logout" type="id"/>
     <item name="delete" type="id"/>
+    <item name="answer" type="id"/>
 
 </resources>

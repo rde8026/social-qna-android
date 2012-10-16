@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    style="@style/fill">
+
+    <LinearLayout
+        style="@style/wide"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/wrap_textview_14sp"
+            android:paddingRight="8dp"
+            android:text="@string/asked_by_label"/>
+
+        <TextView
+            android:id="@+id/askedBy"
+            style="@style/wrap_textview_14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/wide"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/wrap_textview_14sp"
+            android:paddingRight="8dp"
+            android:text="@string/asked_on_label"/>
+
+        <TextView
+            android:id="@+id/askedOn"
+            style="@style/wrap_textview_14sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/wide"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/wrap_textview_14sp"
+            android:paddingRight="8dp"
+            android:text="@string/asked_from_label"/>
+
+        <TextView
+            android:id="@+id/askedFrom"
+            style="@style/wrap_textview_14sp"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/answerText"
+        style="@style/wide_edit_text"
+        android:hint="@string/answer_question_hint"
+        android:minLines="10"
+        android:maxLines="20"/>
+
+</LinearLayout>
