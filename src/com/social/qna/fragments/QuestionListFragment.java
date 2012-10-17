@@ -94,6 +94,10 @@ public class QuestionListFragment extends RoboLockListFragment implements Remove
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        if (mMode != null) {
+            mMode.finish();
+            mMode = null;
+        }
         QuestionModel model = (QuestionModel)l.getAdapter().getItem(position);
         busController.getBus().post(new QuestionAnswerEvent(model));
     }

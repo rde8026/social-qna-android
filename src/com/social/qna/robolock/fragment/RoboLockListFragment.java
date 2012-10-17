@@ -2,6 +2,8 @@ package com.social.qna.robolock.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.social.qna.robolock.dialog.DialogBase;
@@ -17,6 +19,7 @@ import roboguice.RoboGuice;
 public class RoboLockListFragment extends SherlockListFragment implements DialogBase {
 
     private DialogBase dialogBase = null;
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

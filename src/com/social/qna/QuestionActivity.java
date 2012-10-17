@@ -7,10 +7,7 @@ import com.google.inject.Inject;
 import com.social.qna.controllers.BusController;
 import com.social.qna.controllers.LoginController;
 import com.social.qna.events.*;
-import com.social.qna.fragments.AllQuestionsFragment;
-import com.social.qna.fragments.QuestionAnswerFragment;
-import com.social.qna.fragments.QuestionCreateFragment;
-import com.social.qna.fragments.QuestionListFragment;
+import com.social.qna.fragments.*;
 import com.social.qna.robolock.RoboLockFragmentActivity;
 import com.squareup.otto.Subscribe;
 import roboguice.inject.InjectView;
@@ -60,6 +57,11 @@ public class QuestionActivity extends RoboLockFragmentActivity {
     public void questionAnswerEvent(QuestionAnswerEvent questionAnswerEvent) {
         QuestionAnswerFragment fragment = QuestionAnswerFragment.newInstance(questionAnswerEvent.getModel());
         getSupportFragmentManager().beginTransaction().replace(R.id.questionFragRoot, fragment).addToBackStack(null).commit();
+    }
+
+    @Subscribe
+    public void answerCompleteEvent(AnswerCompleteEvent answerCompleteEvent) {
+        getSupportFragmentManager().popBackStack();
     }
 
     @Subscribe

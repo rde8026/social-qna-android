@@ -54,6 +54,7 @@
     <string name="asked_by_label">asked by:</string>
     <string name="asked_on_label">asked on:</string>
     <string name="asked_from_label">location:</string>
+    <string name="submitting_answer_text">Submitting answer...</string>
 
     <!-- Menu Title -->
     <string name="new_question_menu_title">ASK</string>

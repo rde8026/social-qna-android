@@ -8,16 +8,24 @@ import com.kinvey.KCSClient;
 import com.kinvey.KinveyUser;
 import com.kinvey.MappedAppdata;
 import com.kinvey.exception.KinveyException;
+import com.kinvey.persistence.EntityDict;
 import com.kinvey.persistence.mapping.MappedEntity;
+import com.kinvey.persistence.query.LimitQueryModifier;
+import com.kinvey.persistence.query.Query;
+import com.kinvey.persistence.query.SkipQueryModifier;
+import com.kinvey.persistence.query.SortQueryModifier;
 import com.kinvey.util.ListCallback;
 import com.kinvey.util.ScalarCallback;
 import com.social.qna.application.SocialApplication;
 import com.social.qna.model.QuestionModel;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,8 +54,14 @@ public class QuestionController {
 
         QuestionModel model = new QuestionModel();
         model.setQuestionText(questionText);
-        model.setLongitude((float)longitude);
-        model.setLatitude((float)latitude);
+        try {
+            JSONObject location = new JSONObject();
+            location.put("latitude", latitude);
+            location.put("longitude", longitude);
+            model.setLocation(location);
+        } catch (JSONException je) {
+            Log.e(TAG, "JSONException: " + je.getMessage());
+        }
         model.setCreated(sdf.format(new Date()));
         model.setUserId(user.getId());
         model.setCreatedBy(user.getUsername());

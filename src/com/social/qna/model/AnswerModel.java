@@ -2,6 +2,7 @@ package com.social.qna.model;
 
 import com.kinvey.persistence.mapping.MappedEntity;
 import com.kinvey.persistence.mapping.MappedField;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -21,8 +22,7 @@ public class AnswerModel implements MappedEntity, Serializable {
     private String answerText;
     private String createdDate;
     private String updatedDate;
-    private String latitude;
-    private String longitude;
+    private JSONObject location;
 
 
     @Override
@@ -33,8 +33,7 @@ public class AnswerModel implements MappedEntity, Serializable {
                 new MappedField("answerText", "answerText"),
                 new MappedField("createdDate", "createdDate"),
                 new MappedField("updatedDate", "updatedDate"),
-                new MappedField("latitude", "latitude"),
-                new MappedField("longitude", "longitude"),
+                new MappedField("location", "location"),
                 new MappedField("id", "_id")
         });
     }
@@ -87,7 +86,15 @@ public class AnswerModel implements MappedEntity, Serializable {
         this.updatedDate = updatedDate;
     }
 
-    public String getLatitude() {
+    public JSONObject getLocation() {
+        return location;
+    }
+
+    public void setLocation(JSONObject location) {
+        this.location = location;
+    }
+
+    /*public String getLatitude() {
         return latitude;
     }
 
@@ -101,5 +108,5 @@ public class AnswerModel implements MappedEntity, Serializable {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
+    }*/
 }

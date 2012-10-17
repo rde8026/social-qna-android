@@ -24,11 +24,30 @@
                   android:label="@string/app_name" android:configChanges="orientation|screenSize"/>
 
 
+        <!-- required register of push receive -->
+        <receiver android:name="com.kinvey.push.KCSPushReceiver" />
+        <service android:name="com.urbanairship.push.PushService"/>
+
+        <receiver android:name="com.urbanairship.CoreReceiver" >
+            <!-- REQUIRED IntentFilter - For Helium and Hybrid -->
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            </intent-filter>
+        </receiver>
+
+        <!-- OPTIONAL receiver for custom handling of push messages -->
+        <receiver android:name="com.social.qna.push.PushReceiver"/>
+
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 </manifest>

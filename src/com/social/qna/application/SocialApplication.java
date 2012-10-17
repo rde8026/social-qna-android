@@ -7,6 +7,7 @@ import com.google.inject.Provides;
 import com.google.inject.util.Modules;
 import com.kinvey.KCSClient;
 import com.kinvey.KinveySettings;
+import com.kinvey.push.KCSPushNotificationBuilder;
 import roboguice.RoboGuice;
 import roboguice.inject.SharedPreferencesName;
 
@@ -55,6 +56,7 @@ public class SocialApplication extends Application {
     private void init() {
         KinveySettings settings = KinveySettings.loadFromProperties(getApplicationContext());
         service = KCSClient.getInstance(getApplicationContext(), settings);
+        service.enablePush(this);
     }
 
     public KCSClient getService() {

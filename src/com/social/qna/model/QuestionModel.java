@@ -3,6 +3,7 @@ package com.social.qna.model;
 import com.kinvey.KinveyUser;
 import com.kinvey.persistence.mapping.MappedEntity;
 import com.kinvey.persistence.mapping.MappedField;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -22,8 +23,9 @@ public class QuestionModel implements MappedEntity, Serializable {
     private String created;
     private String updated;
     private String userId;
-    private float latitude;
-    private float longitude;
+    /*private float latitude;
+    private float longitude;*/
+    private JSONObject location;
     private String createdBy;
 
     @Override
@@ -33,8 +35,9 @@ public class QuestionModel implements MappedEntity, Serializable {
                 new MappedField("created", "created"),
                 new MappedField("updated", "updated"),
                 new MappedField("userId", "userId"),
-                new MappedField("latitude", "latitude"),
-                new MappedField("longitude", "longitude"),
+                /*new MappedField("latitude", "latitude"),
+                new MappedField("longitude", "longitude"),*/
+                new MappedField("location", "location"),
                 new MappedField("createdBy", "createdBy"),
                 new MappedField("id", "_id")
                 }
@@ -81,7 +84,23 @@ public class QuestionModel implements MappedEntity, Serializable {
         this.userId = userId;
     }
 
-    public float getLatitude() {
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public JSONObject getLocation() {
+        return location;
+    }
+
+    public void setLocation(JSONObject location) {
+        this.location = location;
+    }
+
+    /*public float getLatitude() {
         return latitude;
     }
 
@@ -95,13 +114,5 @@ public class QuestionModel implements MappedEntity, Serializable {
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+    }*/
 }
